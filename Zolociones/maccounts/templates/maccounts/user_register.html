@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mape</title>
+        <meta name="description" content="Mapa de eventos.">
+        <meta name="keywords" content="maps, events, geo, html5, mobile, android, ios, tablet, smartphone, turism, ecuador, macas, morona">
+
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <link  rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <link  rel="stylesheet" href="{% static 'css/mape.css' %}">
+       
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700,300' rel='stylesheet' type='text/css'>
+
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper cyan center">
+                <h5 class="brand-logo">Registro</h5>
+                <ul id="nav-left" class="left rota no-padding">
+                    <li><a href="index.html" data-activates=""><i class="material-icons">label</i></a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Ventana de registro -->
+        <div class="section container">
+            <form action="" class="center-align" style="padding-top: 0;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="black-text large darken-3">
+                    Ingrese sus datos 
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix black-text">account_circle</i>
+                    <input id="username" class="validate input-text black-text darken-3" type="text"/>
+                    <label for="username" class="black-text darken-3">Nombre de usuario</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix black-text">email</i>
+                    <input id="email" class="validate black-text darken-3" type="email" />
+                    <label for="email" data-error="wrong" data-success="right" class="black-text darken-3">E-mail</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix black-text">vpn_key</i>
+                    <input id="password" class="validate black-text darken-3" type="password" />
+                    <label for="password" class="black-text darken-3">Contraseña</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix black-text">vpn_key</i>
+                    <input id="password2" class="validate black-text darken-3" type="password" />
+                    <label for="password2" class="black-text darken-3">Repita la contraseña</label>
+                </div>
+                <button class="btn cyan darken-1 waves-effect waves-light " type="submit" name="action">Enviar
+                    <i class="material-icons">send</i>
+                </button>
+            </form>
+        </div>
+
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script src="{% static 'js/rango-jquery.js' %}">    </script>
+
+        <script>
+            $(document).ready(function() {
+                $('.parallax').parallax();
+                $('.modal-trigger').leanModal();
+                $('select').material_select('destroy');
+            });
+        </script>
+    </body>
+</html>

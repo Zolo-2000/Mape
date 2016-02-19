@@ -1,0 +1,155 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mape</title>
+        <meta name="description" content="Mapa de eventos.">
+        <meta name="keywords" content="maps, events, geo, html5, mobile, android, ios, tablet, smartphone, turism, ecuador, macas, morona">
+
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700,300' rel='stylesheet' type='text/css'>
+        <link  rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
+        <link  rel="stylesheet" href="css/mape.css" >
+
+    </head>
+    <body>
+         <nav>
+            <div class="nav-wrapper cyan center">
+                <a class="brand-logo" href="#"><h5>Perfil</h5></a>
+
+                <ul id="nav-left" class="left rota no-padding">
+                    <li><a href="mape.html" data-activates=""><i class="material-icons">label</i></a></li>
+                </ul>
+                <ul id="nav-right" class="right">
+                    <li><a href="settings.html" data-activates=""><i class="right material-icons">settings</i></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col s12 center">
+                <h5 class="cyan-text darken-3">Nombre de usuario</h5>
+                <img src="img/cielo.jpg" class="materialboxed circle medium" width="250">
+            </div>
+            <div class="col s12">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                    <div class="collapsible-header active"><i class="material-icons">assignment_ind</i>Información</div>
+                    <div class="collapsible-body">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="Nombres" disabled value="Juan Alfredo" id="first_name" type="text" class="validate">
+                                    <label for="first_name">Nombre</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="Apellidos" disabled value="Solorzano Avila" id="last-name" type="text" class="">
+                                    <label for="last-name">Apellido</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="Celular" value="0996590451" id="num-cel" type="tel" class="">
+                                    <label for="num-cel">Celular</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="e-mail" disabled value="solovino.16.2012@gmail.com" id="email" type="text" class="">
+                                    <label for="email">e-mail</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="user-name" disabled value="Zolo" id="user-name" type="text" class="">
+                                    <label for="user-name">Nombre de usuario</label>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <span>Fecha de nacimiento</span>
+                                    <input type="date" class="datepicker" >
+                                </div>
+                                <div class="input-field col s6">
+                                    <input name="sexo" id="mujer" type="radio" class="">
+                                    <label for="mujer">Mujer</label>
+                                    <input name="sexo" id="hombre" type="radio" class="">
+                                    <label for="hombre">Hombre</label>
+                                </div>
+                                
+                            </div>
+                    </div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><i class="material-icons">contacts</i>Contactos</div>
+                      <div class="collapsible-body">
+                        <!--Coleccion de contactos -->
+                        <div id="Contactos" class="collection center">
+                            <a href="#!" class="collection-item"><img src="img/fiesta.jpg" class=" circle left tiny "> Alvin Buestan</a>
+                            <a href="#!" class="collection-item "><img src="img/fiesta.jpg" class=" circle left tiny "> Daniel Argudo</a>
+                            <a href="#!" class="collection-item active"><i class="left material-icons">perm_identity</i> Alan Chacha</a>
+                            <a href="#!" class="collection-item"><i class="left material-icons">perm_identity</i>Tuco Lopez</a>
+                          </div>
+                      </div>
+                    </li>
+
+                    <!--   Comercial     -->
+                    <li>
+                      <div class="collapsible-header"><i class="material-icons">whatshot</i>Cuenta comercial</div>
+                      <div class="collapsible-body">
+                        <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="Local" value="Balcon del Rio" id="local" type="text" class="validate">
+                                    <label for="local">Nombre local</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="Categoría" value="Discoteca" id="categprie" type="text" class="">
+                                    <label for="categorie">Categoria</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="Nombres" disabled value="Juan Alfredo" id="first_name" type="text" class="validate">
+                                    <label for="first_name">Propietario</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input placeholder="CI" value="1400700488" id="email" type="text" class="">
+                                    <label for="email">Identificación</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="oferta" id="oferta" type="text" class="">
+                                    <label for="oferta">Oferta</label>
+                                </div>
+                            </div>
+                            <div class="row center">
+                                <button class="btn cyan darken-1 waves-effect waves-light " type="submit" name="action">Enviar
+                                <i class="material-icons">send</i>
+                                </button>
+                            </div>
+                      </div>
+                    </li>
+                </ul>
+
+                
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('select').material_select('destroy');
+                 $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 70 // Creates a dropdown of 15 years to control year
+                  });
+                 $('.slider').slider({full_width: true});
+            });
+        </script>
+    </body>
+
+</html>

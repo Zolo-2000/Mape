@@ -1,0 +1,225 @@
+{% load staticfiles %}
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mape</title>
+        <meta name="description" content="Mapa de eventos.">
+        <meta name="keywords" content="maps, events, geo, html5, mobile, android, ios, tablet, smartphone, turism, ecuador, macas, morona">
+
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700,300' rel='stylesheet' type='text/css'>
+        <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+        <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+        <link rel="stylesheet" href="{% static 'css/mape.css' %}" >
+
+    </head>
+    <body>
+        <div class="no-padding">
+            <!-- Header -->
+            <nav class="row no-margin">
+                <div class="nav-wrapper cyan">
+                    <a class="brand-logo center" href="#"><h4>mape</h4></a>
+
+                    <ul id="nav-left" class="col s4" >
+                        <li><a class="dropdown-button" href="#" data-activates="menu-izq"><i class="material-icons left">view_module</i><b class="hide-on-med-and-down">Vista</b></a></li>
+                    </ul>
+                    <ul id="nav-right" class="col s4 right">
+                        <li class="right"><a href="profile.html"><i class="material-icons right">perm_identity</i><b class="hide-on-med-and-down">Usuario</b></a></li>
+                    </ul>
+                    <!-- lista de menu izquierdo -->
+                    <ul id="menu-izq" class="dropdown-content">
+                        <li><a href="#!" class="center"> <i class="material-icons">person_pin</i>Mi mapa</a></li>
+                        <li><a href="#Mapa" class="center"> <i class="material-icons">language</i></a></li>
+                        
+                        <li class="divider"></li>
+                        <li><a href="#Eventos" class="center"> <i class="material-icons">explicit</i>Eventos <span class="new badge">4</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- tab de progreso -->
+              <div class="progress no-margin">
+                  <div class="indeterminate"></div>
+              </div>
+            <div class="row no-padding" >
+            <!-- Tabs para seleccionar la seccion Mapa, eventos, comercial-->
+            <div class="col s12 no-padding ">
+                <ul class="tabs cyan-text">
+                    <li class="tab col s3"><a class="active" href="#Mapa">Mapa</a></li>
+                    <li class="tab col s3"><a href="#Eventos">Eventos</a></li>
+                    <li class="tab col s3 disabled"><a href="#Comercial">Comercial</a></li>
+                </ul>
+            </div>
+            <!-- Mapa-->
+            <div id="Mapa" class="col s12 no-padding">
+                <!-- Contenedor de mapa-->
+                <div id="map">
+                    <!-- Contenedor de opciones al frente del mapa-->
+                    <div class="col s12 left frente">
+                        <!-- Boton my-location-->
+                        <div class="col s4 right right-align tooltipped" data-position="bottom" data-delay="2" data-tooltip="Mi ubicacion">
+                            <a href="#">
+                                <i class="material-icons medium ">my_location</i>
+                            </a>
+                        </div>
+                        <!-- Barra de busqueda-->
+                        <div class="input-field right col s7 ">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="search" class="validate">
+                            <label for="icon_prefix">buscar</label>
+                        </div>
+                        <!-- Boton añadir -->
+                        <div class="no-padding">
+                            <div class="fixed-action-btn" >
+                                <a class="btn-floating btn-large cyan darken-2">
+                                    <i class="material-icons medium">add</i>
+                                </a>
+                                <ul>
+                                    <li><a class="btn-floating cyan darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="sitio"><i class="material-icons">room</i></a></li>
+                                    <li><a class="btn-floating red darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="evento"><i class="material-icons">room</i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- visualizador de eventos, localidades -->
+                        <div class="col s12 no-padding">
+                            <ul class="collapsible popout" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header filme"><i class="material-icons right">room</i>
+                                        <b>titulo de Evento</b>
+                                    </div>
+                                    <div class="collapsible-body frente">
+                                        <ul class="collection filme-med">
+                                            <li class="collection-item row">
+                                                <div class="col s6">
+                                                De: <b>Juan Solorzano</b></div> 
+                                                <div class="col s6">
+                                                De: <b>Juan Solorzano</b></div>
+                                            </li>
+                                            <li class="collection-item">Hora: <b>15h30</b></li>                            
+                                            <li class="collection-item truncate">Descripci&oacute;n: asdasdf asdfasdf   asdf asdasd asdfa asdf      ASDFASDFASDFASDF      ASDFASDFASDFA       asdf adf aSDFASDF ASDF</li>
+                                            <li class="collection-item"><img class="materialboxed" width="400" src="img/fiesta.jpg"></li>
+                                            <li class="collection-item">Cover: <b>free</b></li>
+                                            <li class="collection-item center"><a class="btn-floating blue"> <i class="material-icons medium">done</i></a><div class="separator"></div><a class="btn-floating blue"><i class="material-icons medium">add</i></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+            <!-- Todos los eventos enlistados-->
+            <div id="Eventos" class="row">
+                <!-- Ciudad en la que se encuentra -->
+                <div class="grey-text col s4">
+                    <p><h5>Macas</h5></p>
+                </div>
+                <!-- Boton de Busqueda-->
+                <div class="input-field col s7 ">
+                    <input id="search2" type
+                    ="search" class="validate">
+                    <label for="search2"><i class="material-icons prefix">search</i><label>
+                </div>
+                <!-- Elementos de la lista de eventos 
+                Tambien muestra los resultados de una busqueda -->
+                <ul class="col s12 collapsible popout" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header no-padding"><img src="img/fiesta.jpg" class="materialboxed left no-margin no-padding" width="200">
+                        <b>Noche de Vallenatos</b>
+                        </div>
+                        <!-- Informacion de perfil -->
+                        <div class="collapsible-body">
+                              <ul class="collection">
+                                <li class="collection-item avatar">
+                                  <img src="img/cielo.jpg" alt="" class="circle">
+                                  <span class="title">Balcon del Rio</span>
+                                  <p class="center">Te invita a <br>
+                                     <b>Noche de Vallenatos</b> <br>
+                                     Viernes 21, Desde las 14H00 <br>
+                                     Cover: 4,99USD
+                                  </p>
+                                  <!-- boton "seguir" -->
+                                  <a href="#" class="secondary-content btn-floating tooltiped cyan accent-1" data-position="left" data-tooltip="Seguir" data-delay"50"><i class="material-icons">add</i></a> 
+                                </li>
+                              </ul>
+                              <ul id="Ofert" class="container row">
+                                <li class="col s6 center">
+                                    <h5>Baile</h5>
+                                    <h5>Baile</h5>
+                                    <h5>Baile</h5>
+                                    <h5>Baile</h5>
+                                    <h5>Baile</h5>
+                                    <h5>Baile</h5>
+                                </li>
+                                <li class="col right s6">
+                                    <img src="img/fiesta.jpg" class="materialboxed left no-margin" width="150">
+                                    <img src="img/cielo.jpg" class="materialboxed left no-margin" width="150">
+                                    <img src="img/fiesta.jpg" class="materialboxed left no-margin" width="150">
+                                </li>
+                              <ul>
+                              </ul>
+                              <ul>
+                                <div>
+
+                                </div>
+                              </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header center-align"><img src="img/cielo.jpg" class="circle left"><b>Municipio</b></div>
+                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Comercial pendiente-->
+            <div id="Comercial" class="col s12">
+
+            </div>
+        </div>
+        
+        <!--    Comercial     -->
+        <div id="Comercial" class="col s12">
+        </div>
+
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="{% static 'js/rango-jquery.js' %}">    </script>
+
+        <script>
+            $(document).ready(function() {
+                $(".button-collapse").sideNav();
+                $('.collapsible').collapsible({
+                    accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+                $('.fixed-action-btn').closeFAB();
+                $('.dropdown-button').dropdown({
+                      inDuration: 300,
+                      outDuration: 225,
+                      constrain_width: false, // Does not change width of dropdown to that of the activator
+                      hover: true, // Activate on hover
+                      gutter: 0, // Spacing from edge
+                      belowOrigin: false // Displays dropdown below the button
+                    }
+                  );
+
+            });
+        </script>
+        <script>
+            L.mapbox.accessToken = 'pk.eyJ1Ijoiem9sbyIsImEiOiJ0VlphRlZFIn0.gLAS81dTkxi1W5FqVMKwXg';
+            var map = L.mapbox.map('map', 'mapbox.streets')
+                    .setView([-2.307, -78.124], 14);
+            L.mapbox.map('map', 'zolo.lkgcf241');
+            $('.tooltipped').tooltip({delay: 50});
+
+        </script>
+
+    </body>
+
+</html>
