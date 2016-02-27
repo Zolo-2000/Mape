@@ -2,11 +2,20 @@ from django import forms
 from django.contrib.auth.models import User
 
 class RegisterUserForm(forms.Form):
-    username = forms.CharField(min_length=5)
-    email = forms.EmailField()
-    password = forms.CharField(min_length=5, widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
-    photo = forms.ImageField(required=False)
+    username = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput(attrs={'type': 'Text'}))
+    email = forms.EmailField(
+        widget = forms.EmailInput(attrs={'type': 'email', 'class': 'validate'}))
+    password = forms.CharField(
+        min_length = 5, 
+        widget = forms.PasswordInput(attrs={'type': 'password'}))
+    password2 = forms.CharField(
+        min_length = 5,
+        widget = forms.PasswordInput(attrs={'type': 'password'}))
+    photo = forms.ImageField(
+        required=False, 
+        widget = forms.FileInput(attrs={'type': 'file'}))
 
     def clean_username(self):
         username = self.cleaned_data['username']

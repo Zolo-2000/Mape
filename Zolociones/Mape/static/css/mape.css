@@ -73,6 +73,11 @@ textarea.materialize-textarea.valid:focus {
     box-shadow:  #388e3c  !important ;
 }
 
+/* Color del tema para los botones que se generan automaticamente */
+.btn .btn-large {
+  background-color: #00bcd4 !important;
+}
+
 /* Colores de paginador MAPA-EVENTOS-COMERCIAL */
 .tabs .tab a {
 color: #80deea;}

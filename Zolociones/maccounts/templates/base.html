@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="description" content="Mapa de eventos.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">    
+
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
+    <link rel="stylesheet" href="{% static 'css/mape.css' %}" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Comfortaa:400,700,300">     
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper cyan center">
+            <h5 class="brand-logo">{% block name %}{% endblock name %}</h5>
+            <ul id="nav-left" class="left rota no-padding">
+                <li><a href="index.html" data-activates=""><i class="material-icons">label</i></a></li>
+            </ul>
+        </div>
+    </nav>
+    {% block content %} {% endblock content %}
+    <!-- Scripts execution-->
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="{% static 'js/rango-jquery.js' %}">    </script>
+</body>
+</html>

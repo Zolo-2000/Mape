@@ -17,6 +17,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^mape/', include('Mape.urls', namespace="mape")),
-    url(r'^maccounts/', include('maccounts.urls', namespace="maccounts")),
+    url(r'^mape/', include('Mape.urls', namespace="Mape")),
+    url(r'^login/', include('maccounts.urls', namespace="Maccounts")),
 ]
