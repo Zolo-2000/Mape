@@ -3,4 +3,6 @@ $(document).ready(function() {
             $('input#input_text, textarea#textarea1').characterCounter();
             $('.parallax').parallax();
             $('select').material_select('destroy');
+            $('.materialboxed').materialbox();
+            $('.carousel').carousel()
 });

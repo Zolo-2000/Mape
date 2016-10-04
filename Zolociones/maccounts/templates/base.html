@@ -14,10 +14,14 @@
 </head>
 <body>
     <nav>
+        <!-- Bloques: Name, back_url, next_url, next_logo-->
         <div class="nav-wrapper cyan center">
             <h5 class="brand-logo">{% block name %}{% endblock name %}</h5>
-            <ul id="nav-left" class="left rota no-padding">
-                <li><a href="index.html" data-activates=""><i class="material-icons">label</i></a></li>
+            <ul id="nav-left" class="left no-padding">
+                <li><a href="{% block back_url %}{% endblock back_url %}"><i class="material-icons">{% block back_logo %}{% endblock back_logo %}</i></a></li>
+            </ul>
+            <ul id="nav-right" class="left no-padding right">
+                <li><a href="{% block next_url %}{% endblock next_url %}"><i class="material-icons">{% block next_logo %}{% endblock next_logo %}</i></a></li>
             </ul>
         </div>
     </nav>

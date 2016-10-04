@@ -1,4 +1,6 @@
+<!-- Carga los archivos estaticos de la aplicacion-->
 {% load staticfiles %}
+<!-- -->
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -9,8 +11,8 @@
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700,300' rel='stylesheet' type='text/css'>
-        <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-        <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
         <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection">
         <link rel="stylesheet" href="{% static 'css/mape.css' %}" >
     </head>
@@ -20,41 +22,43 @@
     <nav class="row no-margin no-padding">
         <div class="nav-wrapper cyan">
             <a class="brand-logo center" href="#"><h4>mape</h4></a>
-
+            <!-- BOTON de menu izquierdo -->
             <ul id="nav-left" class="" >
-                <li><a class="dropdown-button" data-activates="menu-izq"><i class="material-icons left">view_module</i><b class="hide-on-med-and-down">Vista</b></a></li>
+                <li><a class="dropdown-button" data-activates="menu-izq"><i class="material-icons left">view_module</i><b class="hide-on-med-and-down"></b></a></li>
             </ul>
-            <ul id="nav-right" class="RIGHT">
+            <!-- BOTON de menu izquierdo -->
+            <ul id="nav-right" class="">
                 <li class="right"><a class="dropdown-button" data-activates="menu-der"><i class="material-icons ">perm_identity</i></a></li>
             </ul>
             <!-- LISTA de menu izquierdo -->
             <ul id="menu-izq" class="dropdown-content">
-                <li><a href="#!" class="center"> <i class="material-icons">person_pin</i>Mi mapa</a></li>
-                <li><a href="#Mapa" class="center"> <i class="material-icons">language</i></a></li>
-                
+                <li><a href="{% url 'Mape:mapa' %}" class="center"> <i class="material-icons">language</i></a></li>
                 <li class="divider"></li>
-                <li><a href="#Eventos" class="center"> <i class="material-icons">explicit</i>Eventos <span class="new badge">4</span></a></li>
+                <li><a href="{% url 'Mape:shower' %}" class="center"> <i class="material-icons">explicit</i>Eventos<span class="new badge cyan ">4</span></a></li>
             </ul>
             <!-- LISTA de menu derecho -->
             <ul id="menu-der" class="dropdown-content">
                 <!-- Links genericos para cuentas comerciales -->
-                <li><a href="" class="center"> <i class="material-icons">assignment_ind</i>Mi comercial</a></li>
-                
+                {% if user_commertial %}
+                <li><a href="" class="center"> <i class="material-icons">assignment_ind</i>{{ user_commertial.commertial_name }}</a></li>
+                {% endif %}
                 <li class="divider"></li>
-                <li><a href="{% url 'Mape:accounts' %}" class="center"> <i class="material-icons">settings_applications</i>Configuraciones <span class="new badge">4</span></a></li>
+                <li><a href="{% url 'Mape:accounts' %}" class="center"> <i class="material-icons">settings_applications</i>Configuraciones </a></li>
+                <li><a href="{% url 'Maccounts:maccounts.logout' %}" class="center"> <i class="material-icons">power_settings_new</i>Salir</a></li>
             </ul>
         </div>
     </nav>
     <!-- tab de progreso -->
-    <div class="progress no-margin">
-        <div class="indeterminate"></div>
+    <div class="cyan progress no-margin cyan lighten-3">
+        <div class="indeterminate cyan"></div>
     </div>
     <div class="row no-padding no-margin" >
-    {% block content %}{% endblock content %}
+    {% block content %}
+    {% endblock content %}
     </div>
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-    <script src="{% static 'js/rango-mape.js' %}">    </script>
-    <script src="{% static 'js/mapbox-jquery.js' %}">    </script>
+    <script src="{% static 'js/mapbox-jquery.js' %}"></script>
+    <script src="{% static 'js/rango-mape.js' %}"></script>
     </body>
 </html>

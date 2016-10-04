@@ -110,7 +110,13 @@ color: #80deea;}
   .material-tooltip {
     font-size: 0.7em; }
 
+
+.slider .indicators .indicator-item.active{
+  background-color: #80deea !important; 
+}
+
 .frente {position:relative; z-index: 1;}
+
 
 .fullscreen{
         padding: 0; 
@@ -155,4 +161,7 @@ color: #80deea;}
      color: #b2ebf2 ;
    }
 
+.indeterminate{
+  color: #00bcd4;
+}
  

@@ -1,16 +1,10 @@
 {% extends 'base-mape.html' %}
 {% block title %}Mape{% endblock title %}
 {% block content %}
+
 <div class="no-padding">
-    <!-- Tabs para seleccionar la seccion publico-->
-    <div class="col s12 no-padding ">
-        <ul class="tabs cyan-text">
-            <li class="tab col s6"><a class="active" href="#Mapa">P&uacute;lico</a></li>
-            <li class="tab col s6"><a href="#Privado">Privado</a></li>
-        </ul>
-    </div>
     <!-- Mapa-->
-    <div class="col s12 no-padding">
+    <div id="Mapa" class="col s12 no-padding">
         <!-- Contenedor de mapa-->
         <div id="map">
             <!-- Contenedor de opciones al frente del mapa-->
@@ -22,12 +16,12 @@
                     </a>
                 </div>
                 <!-- Barra de busqueda-->
-                <div class="input-field right col s7 ">
-                    <i class="material-icons prefix">search</i>
-                    <input id="icon_prefix" type="search" class="validate">
-                    <label for="icon_prefix">buscar</label>
+                <div class="input-field right col s6 l3 offset-l2">
+                    <i class="material-icons prefix cyan-text">search</i>
+                    <input id="search1" type="search" class="validate">
+                    <label for="search1">buscar</label>
                 </div>
-                <!-- Boton añadir -->
+                <!-- Boton añadir  -->
                 <div class="no-padding">
                     <div class="fixed-action-btn" >
                         <a class="btn-floating btn-large cyan darken-2">
@@ -39,99 +33,10 @@
                         </ul>
                     </div>
                 </div>
-                <!-- visualizador de eventos, localidades 
-                <div class="col s12 no-padding">
-                    <ul class="collapsible popout" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header filme"><i class="material-icons right">room</i>
-                                <b>titulo de Evento</b>
-                            </div>
-                            <div class="collapsible-body frente">
-                                <ul class="collection filme-med">
-                                    <li class="collection-item row">
-                                        <div class="col s6">
-                                        De: <b>Juan Solorzano</b></div> 
-                                        <div class="col s6">
-                                        De: <b>Juan Solorzano</b></div>
-                                    </li>
-                                    <li class="collection-item">Hora: <b>15h30</b></li>                            
-                                    <li class="collection-item truncate">Descripci&oacute;n: asdasdf asdfasdf   asdf asdasd asdfa asdf      ASDFASDFASDFASDF      ASDFASDFASDFA       asdf adf aSDFASDF ASDF</li>
-                                    <li class="collection-item"><img class="materialboxed" width="400" src="img/fiesta.jpg"></li>
-                                    <li class="collection-item">Cover: <b>free</b></li>
-                                    <li class="collection-item center"><a class="btn-floating blue"> <i class="material-icons medium">done</i></a><div class="separator"></div><a class="btn-floating blue"><i class="material-icons medium">add</i></a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                -->
+               
             </div>
         </div>
     </div>
-    <!-- Todos los eventos enlistados
-    <div id="Publico" class="">
-        <!-- Ciudad en la que se encuentra ->
-        <div class="grey-text col s4">
-            <p><h5>Macas</h5></p>
-        </div>
-        <!-- Boton de Busqueda->
-        <div class="input-field col s7 ">
-            <input id="search2" type
-            ="search" class="validate">
-            <label for="search2"><i class="material-icons prefix">search</i><label>
-        </div>
-        <!-- Elementos de la lista de eventos 
-        Tambien muestra los resultados de una busqueda ->
-        <ul class="col s12 collapsible popout" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header no-padding"><img src="img/fiesta.jpg" class="materialboxed left no-margin no-padding" width="200">
-                <b>Noche de Vallenatos</b>
-                </div>
-                <!-- Informacion de perfil ->
-                <div class="collapsible-body">
-                      <ul class="collection">
-                        <li class="collection-item avatar">
-                          <img src="img/cielo.jpg" alt="" class="circle">
-                          <span class="title">Balcon del Rio</span>
-                          <p class="center">Te invita a <br>
-                             <b>Noche de Vallenatos</b> <br>
-                             Viernes 21, Desde las 14H00 <br>
-                             Cover: 4,99USD
-                          </p>
-                          <!-- boton "seguir" ->
-                          <a href="#" class="secondary-content btn-floating tooltiped cyan accent-1" data-position="left" data-tooltip="Seguir" data-delay"50"><i class="material-icons">add</i></a> 
-                        </li>
-                      </ul>
-                      <ul id="Ofert" class="container row">
-                        <li class="col s6 center">
-                            <h5>Baile</h5>
-                            <h5>Baile</h5>
-                            <h5>Baile</h5>
-                            <h5>Baile</h5>
-                            <h5>Baile</h5>
-                            <h5>Baile</h5>
-                        </li>
-                        <li class="col right s6">
-                            <img src="img/fiesta.jpg" class="materialboxed left no-margin" width="150">
-                            <img src="img/cielo.jpg" class="materialboxed left no-margin" width="150">
-                            <img src="img/fiesta.jpg" class="materialboxed left no-margin" width="150">
-                        </li>
-                      <ul>
-                      </ul>
-                      <ul>
-                        <div>
-
-                        </div>
-                      </ul>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header center-align"><img src="img/cielo.jpg" class="circle left"><b>Municipio</b></div>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-            </li>
-        </ul>
-    </div>
-    -->
 </div>
 
 {% endblock content %}

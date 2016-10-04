@@ -1,0 +1,129 @@
+<!-- visualizador de eventos, localidades -->
+{% extends base %}
+{% block title %}Mape{% endblock title %}
+{% block content %}
+<div class="col s12 no-padding">
+  <div id="Eventos" class="col s12 no-padding">
+    <!-- Ciudad en la que se encuentra -->
+    <div class="grey-text col s4 m4 l3 center">
+        <p><h5>Macas</h5></p>
+    </div>
+    <!-- Boton de Busqueda -->
+    <div class="cyan-text input-field col s7 m4 l3 ">
+        <i class="material-icons prefix cyan-text">search</i>
+        <input id="search2" type="search" class="validate no-padding">
+        <label for="search2"><i class="material-icons prefix">buscar</i><label>
+    </div>
+    <!-- Boton añadir  -->
+    {% if events %}
+    <div class="no-padding">
+        <div class="fixed-action-btn" >
+            <a class="btn-floating btn-large cyan darken-2">
+                <i class="material-icons medium">add</i>
+            </a>
+            <ul>
+                <li><a href="{% url 'Mape:location_register' %}" class="btn-floating cyan darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="sitio"><i class="material-icons">room</i></a></li>
+                <li><a href="{% url 'Mape:event_register' %}" class="btn-floating red darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="evento"><i class="material-icons">room</i></a></li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+        <!-- Enlistador de eventos -->
+        {% for event in events %}
+        <div class="card large cyan-text col s12 center l8 offset-l2">
+          <!-- Slider de la tarjeta -->
+              <div class="card-image no-margin waves-effect waves-block waves-light slider activator">
+                  <ul class="slides">
+                    <li>
+                      <img src="http://lorempixel.com/580/250/nature/2"> <!-- random image -->
+                      <div class="caption center-align">
+                        <h3>{{ event.event_name }}</h3>
+                        <h5 class="light grey-text text-lighten-3"> Un evento de: <br>{{ event.user.username }}.</h5>
+                      </div>
+                    </li>
+                    {% if  event.hashtags %}
+                    <li>
+                      <img src="http://lorempixel.com/580/250/nature/3"> <!-- imagen de hashtag si hay -->
+                      <div class="caption left-align">
+                        <h3>Left Aligned Caption</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <img src="http://lorempixel.com/580/250/nature/3"> <!-- random image -->
+                      <div class="caption right-align">
+                        <h3>Right Aligned Caption</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                      </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- opciones de la tarjeta-->
+            <div class="card-content no-margin no-padding">
+              <span class="card-title activator grey-text text-darken-4">{{ event.event_name }}<i class="material-icons right">more_vert</i></span>
+              <p><a href="#">seguir</a></p>
+            </div>
+            <!-- Contenido revelado de la tarjeta del Evento-->
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{ event.event_name }}<i class="material-icons right">close</i></span>
+              <p>{{ event.info }}.</p>
+              <ul class="collection filme-med">
+                  <li class="collection-item">Lugar: {{ event.location }} </li>
+                  <li class="collection-item">Hora: <b>{{ event.when }}</b></li>
+                  {% if event.ends %}
+                    <li class="collection-item">Hasta: <b>{{ event.ends }}</b></li>
+                  {% endif %}
+                  <li class="collection-item"><img class="materialboxed" width="400" src="http://lorempixel.com/580/250/nature/3"></li>
+                  <li class="collection-item">Cover: 
+                    <b>
+                    {%if event.cover_price %} 
+                      {{ event.cover_price }}
+                    {% else %} GRATIS 
+                    {% endif %}</b></li>
+                  <li class="collection-item center">
+                    <a class="btn-floating blue"><i class="material-icons medium">done</i> Seguir </a>
+                  </li>
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+    <!-- visualizador popout tranparente 
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header filme"><i class="material-icons right">room</i>
+                <b>{{ base }}</b>
+            </div>
+            <div class="collapsible-body frente">
+                <ul class="collection filme-med">
+                    <li class="collection-item row">
+                        <div class="col s6">
+                        De: <b>{{ username }}</b></div> 
+                    </li>
+                     {% for event in events %}
+                    <li class="collection-item row">
+                        <div class="col s6">
+                            <b>{{ event }}</b>
+                    </li>
+                    {% endfor %}
+                    {% if user_events %}
+                    <b>Tus eventos: </b>
+                    {% for event in user_events %}
+                    <li class="collection-item row">
+                        <div class="col s6">
+                            <b> {{ event }}</b>
+                    </li>
+                    {%endfor%}
+                    {%endif%}
+                    <li class="collection-item">Hora: <b>15h30</b></li>                            
+                    <li class="collection-item truncate">Descripci&oacute;n: asdasdf asdfasdf   asdf asdasd asdfa asdf      ASDFASDFASDFASDF      ASDFASDFASDFA       asdf adf aSDFASDF ASDF</li>
+                    <li class="collection-item"><img class="materialboxed" width="400" src="img/fiesta.jpg"></li>
+                    <li class="collection-item">Cover: <b>free</b></li>
+                    <li class="collection-item center"><a class="btn-floating blue"> <i class="material-icons medium">done</i></a><div class="separator"></div><a class="btn-floating blue"><i class="material-icons medium">add</i></a></li>
+                </ul>
+            </div>
+        </li>
+    </ul> -->
+</div>
+{% endblock content %}

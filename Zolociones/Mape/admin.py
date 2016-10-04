@@ -1,34 +1,33 @@
 from django.contrib import admin
-from .models import User, Event, Profile, Commertial, Sponsor, Offer, Commertial_categorie, Commertial_offer, Categorie, Hashtag
+from .models import *
+from maccounts.models import *
 
-class EventInLine(admin.TabularInline):
-	model = Event
+
+class PostInLine(admin.TabularInline):
+	model = Post
 	extra = 3
-
-class CategoriesStacked(admin.StackedInline):
-	model = Commertial_categorie
-	extra = 3
-
-class ProfileAdmin(admin.ModelAdmin):
-	list_display = ('user', 'birthday', 'identification')
-	list_filter = ('user_name',)
-	search_fields = ('user',)
-	inlines = [EventInLine]
-
-class CommertialAdmin(admin.ModelAdmin):
-	list_display = ('user', 'name', 'date_joined', 'price_initial', 'price_final')
-	search_fields = ('name', 'price_initial')
-	inlines = [CategoriesStacked]
 
 class EventAdmin(admin.ModelAdmin):
-	list_display = ('name', 'user', 'info', 'date_joined')
+	list_display = ('event_name', 'when', 'state', 'location', 'date_joined')
+	list_filter = ('event_name', 'user')
+	ordering = ['-date_joined']
+	search_fields = ('when', 'state', 'location', 'hashtags')
 
+class CommertialAdmin(admin.ModelAdmin):
+	list_display = ('commertial_name', 'location', 'user_profile','ruc', 'date_joined')
+	list_filter = ['date_joined']
+	ordering = ['commertial_name']
+	search_fields = ['commertial_name', 'user_profile', 'location']
 
-admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Commertial, CommertialAdmin)
+class LocationAdmin(admin.ModelAdmin):
+	list_display = ('location_name', 'user_profile', 'date_joined')
+	list_filter = ('user_profile', 'date_joined')
+
 admin.site.register(Event, EventAdmin)
-admin.site.register(Categorie)
 admin.site.register(Sponsor)
-admin.site.register(Commertial_categorie)
 admin.site.register(Hashtag)
-admin.site.register(Commertial_offer)
+admin.site.register(Categorie)
+admin.site.register(Commertial, CommertialAdmin)
+admin.site.register(Post)
+admin.site.register(Location, LocationAdmin)
+admin.site.register(Offer)

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}login{% endblock title %}
+{% block title %}Cuenta{% endblock title %}
+{% block name %}Usuario{% endblock name %}
+{% block back_url %}{% url 'Mape:mape' %}{% endblock back_url %}
+{% block back_logo %}skip_previous{% endblock back_logo %}
 {% block content %}
     {% if mensaje %}
         <div class="alert alert-danger">
@@ -8,40 +11,7 @@
     {% endif %} 
         <!-- Ventana de registro -->
         <div class="section container">
-            <form action="" method="post" class="center-align" style="padding-top: 0;">
             {% csrf_token %}
-            <div class="form-group input-field col s6">
-                <i class="material-icons prefix black-text">account_circle</i>
-                <input id="username" class="form-control validate input-text black-text darken-3" type="text"/>
-                <label for="username" class="black-text darken-3">Nombre de usuario</label>
-            </div>
-            <div class="form-group input-field col s6">
-                <i class="material-icons prefix black-text">email</i>
-                <input id="email" name="email" class="form-control validate black-text darken-3" type="email" />
-                <label for="email" data-error="wrong" data-success="right" class="black-text darken-3">E-mail</label>
-            </div>
-            <div class="form-group input-field col s6">
-                <i class="material-icons prefix black-text">vpn_key</i>
-                <input id="password" name="password" class="form-control validate black-text darken-3" type="password" />
-                <label for="input_text" class="black-text darken-3">Contraseña</label>
-            </div>
-            <div class="form-group input-field col s6">
-                <i class="material-icons prefix black-text">vpn_key</i>
-                <input id="password2" bane="password2" class="form-control validate black-text darken-3" type="password" />
-                <label for="password2" class="black-text darken-3">Repita la contraseña</label>
-                </div>
-            <div class="file-field input-field s2">
-                <div class="btn">
-                    <span>Foto</span>
-                    <input class="form-control darken-1 waves-effect waves-light" type="file" id="image" name="image">
-                </div>
-                <div ckass="file-path-wrapper cyan">
-                    <input class="file-path validate " type="text" placeholder="A&ntilde;ade tu imagen de perfil">
-                </div>
-            </div>
-                <button class="btn cyan marginado darken-1 waves-effect waves-light " type="submit" name="action">Enviar
-                    <i class="material-icons">send</i>
-                </button>
-            </form>
+            {{ form.as_p }}
         </div>
 {% endblock content %}

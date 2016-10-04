@@ -1,49 +1,77 @@
-{% extends 'base.html' %}
+{% extends base %}
 {% block title %}Configuracion{% endblock title %}
-{% block name %}Cuenta de usuario{% endblock name %}
+{% block name %}Cuentas{% endblock name %}
+{% block back_url %}{% url 'Mape:mapa' %}{% endblock back_url %}
+{% block back_logo %}home{% endblock back_logo %}
+
 {% block content %}
-        <div class="parallax-container">
-        <div class="parallax"><img src="img/fiesta.jpg"></div>
+<!-- INICIA EL BLOQUE DE CONTENIDO -->
+<div class="container center">
+    <br>
+    <div class="row " >
+        <!-- SI EXISTE FOTO DE PERFIL EN PERFIL DE USUARIO -->
+        {% if user_profile.image %}
+            <img class="col l2 s4 responsive-img circle materialboxed" width="120" src="{{ MEDIA_URL }}{{ user_profile.image }}" alt="Foto de perfil: {{ user_profile.user_name }}">
+        {% else %}
+            <a class="col l2 s3 button waves-effect">
+                <i class="material-icons large prefix cyan-text" alt="Imagen de {{ user_profile.user_name }}">account_circle</i>
+            </a>
+        {% endif %}
+        <div class="col l3 s8 ">
+            <p>
+            Usuario: {{ user_profile.user_name }} <br>
+            {% if user_commertial %}
+            Anfitri&oacute;n de: <a href="">{{ user_commertial.commertial_name }}</a><br>
+            {% endif%}
+            {% if user_profile.phone_1 %}
+            Celular: {{ user_profile.phone_1 }}<br>
+            {% endif%}
+            {% if user_profile.phone_2 %}
+            Contacto 2: {{ user_profile.phone_2 }}<br>
+            {% endif%}
         </div>
-        <!-- Ventana de registro -->
-        <div class="section container">
-            <form action="#mape" class="center-align" style="padding-top: 0;">
-                <div class="black-text large darken-3">
-                    Ingrese sus datos 
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">account_circle</i>
-                    <input id="name-user" class="validate input-text black-text darken-3" type="text"/>
-                    <label for="input_text" class="black-text darken-3">Nombre</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">account_circle</i>
-                    <input id="lastname-user" class="validate black-text darken-3" type="text" />
-                    <label for="input_text" class="black-text darken-3">Apellido</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">account_circle</i>
-                    <input id="username-user" class="validate black-text darken-3" type="text"/>
-                    <label for="input_text" class="black-text darken-3">Nombre de usuario</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">email</i>
-                    <input id="email-user" class="validate black-text darken-3" type="email" />
-                    <label for="email" data-error="wrong" data-success="right" class="black-text darken-3">E-mail</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">vpn_key</i>
-                    <input id="pass-user" class="validate black-text darken-3" type="password" />
-                    <label for="input_text" class="black-text darken-3">Contraseña</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix black-text">vpn_key</i>
-                    <input id="passconfirmation-user" class="validate black-text darken-3" type="password" />
-                    <label for="input_text" class="black-text darken-3">Repita la contraseña</label>
-                </div>
-                <button class="btn cyan darken-1 waves-effect waves-light " type="submit" name="action">Enviar
-                    <i class="material-icons">send</i>
-                </button>
-            </form>
+    </div>
+    
+    <div class="divider"></div>
+    <!-- COMIENZA EL BLOQUE QUE CONTIENE LA INFORMACION DEL PERFIL DE USUARIO -->
+    <div class="right">
+        <a href="{% url 'Maccounts:maccounts.user_register' %}"><i class="material-icons">mode_edit</i><b>Editar</b></a>
+    </div>
+    <div class="card-panel lighten-5 z-depth-1 section row">
+        <h5 class="col l3 s12 text-center">M&aacute;s informaci&oacute;n: </h5>
+        <p class="col l5 s12">
+            Nombre: {{ full_name }}<br>
+            Email: {{ user_profile.user.email }} <br>
+            {% if user_commertial %}
+                C&eacute;dula: {{ user_profile.identification }} <br>
+            {% endif %}
+            Activo desde: {{ user_profile.user.date_joined }} <br>
+        </p>
+    </div>
+    <!-- EXISTE UN COMERCIAL ASOCIADO A LA CUENTA SE MUESTRA A CONTINUACION-->
+    <div class="divider"></div>
+    {% if user_commertial %}
+    <div class="right">
+            <a href="#" ><i class="material-icons">mode_edit</i><b>Editar</b></a>
         </div>
+    <div class=" card-panel lighten-5 z-depth-1 section row">
+        <!-- ojo aqui la suma del row= col1 + col2 + offset-l -->
+        <h5 class="col l3"> {{ user_commertial.commertial_name }}: </h5>
+        <img class="col l2 s3 responsive-img circle materialboxed" width="120" src="http://lorempixel.com/250/250/nature/2" alt="Im&aacute;gen de: {{ user_commertial.commertial_name }}">
+        categoria 1 <br>
+        {% for categorie in categories %}
+            {{categorie}} ,
+        {% endfor %}
+        {% if user_commertial.ruc %}
+        Ruc: {{ user_commertial.ruc }}
+        {%endif%}
+        {{ user_commertial.description }} <br>
+        
+    </div>
+    {% endif %}
+    </ul>
+</div>
+
+    
+        
 {% endblock content %}

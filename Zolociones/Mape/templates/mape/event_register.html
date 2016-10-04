@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Event{% endblock title %}
+{% block name %}Registro{% endblock name %}
+{% block back_url %}{% url 'Mape:mapa' %}{% endblock back_url %}
+{% block back_logo %}skip_previous{% endblock back_logo %}
+{% block content %}
+    {% if mensaje %}
+        <div class="alert alert-danger">
+            {{ mensaje }}
+        </div>
+    {% endif %} 
+        <!-- Ventana de registro -->
+        <div class="section container">
+            <form action="" method="post" class="center-align" style="padding-top: 0;">
+            	{% csrf_token %}
+    			{{ form.as_p }}
+    			<input type="submit" value="Submit" />
+			</form>
+		</div>
+{% endblock content %}

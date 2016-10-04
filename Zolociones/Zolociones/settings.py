@@ -21,7 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'mv@-nti*ysp*ahrt-dr9e+^a@hm6yq#7o)9$u(^@h0lslt5fb-'
-
+#token para mapbox
+MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoiem9sbyIsImEiOiJ0VlphRlZFIn0.gLAS81dTkxi1W5FqVMKwXg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,8 +38,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admindocs',
     'Mape',
     'maccounts',
+    'mapbox',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +53,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'Zolociones.urls'
@@ -65,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -87,6 +93,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+# Django
+'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -108,3 +118,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/successfully_logged_out/'

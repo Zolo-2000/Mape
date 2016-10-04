@@ -1,7 +1,118 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.models import User
+from .models import User_profile
 
+class EventRegisterForm(forms.Form):
+    event_name = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput(attrs={'type': 'Text'}))
+    info = forms.EmailField(
+        widget = forms.EmailInput(attrs={'type': 'email', 'class': 'validate'}))
+    when = forms.DateField(
+        widget =  SelectDateWidget(empty_label=("A&ntilde;io", "Mes", "D&iacute;a"))
+        )
+    ends = forms.DateField(
+        widget =  SelectDateWidget(empty_label=("A&ntilde;io", "Mes", "D&iacute;a"))
+        )
+    cover_price = forms.DecimalField(
+        decimal_places = 2,
+        widget = forms.NumberInput(attrs={'type': 'text'}))
+    cover_image = forms.ImageField(
+        required=False, 
+        widget = forms.FileInput(attrs={'type': 'file', 'class': 'cyan'}))
+    hashtags = forms.CharField(
+        min_length = 2,
+        widget = forms.TextInput(attrs={'type': 'Text'}))
+    location = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput(attrs={'type': 'Text'}))
+    def clean_event_name(self):
+        event_name = self.cleaned_data['event_name']
+        if Event.objects.filter(event_name=event_name):
+            raise forms.ValidationError('Este nombre de evento ya esta registrado.')
+        return event_name
+    
+class LocationRegisterForm(forms.Form):
+    pass
+    
+class CommertialRegisterForm(forms.Form):
+    user_name = forms.CharField(
+        max_length=45,
+        widget = forms.TextInput(attrs={'type': 'text', 'lenght': '45'}))
+    description = forms.CharField(
+        max_length=100,
+        widget = forms.TextInput(attrs={'type': 'text', 'lenght': '100'}))
+    commertial_image = forms.ImageField(
+        widget = forms.FileInput(attrs={'type': 'file'}))
+    price_initial = forms.DecimalField(
+        decimal_places = 2,
+        widget = forms.NumberInput(attrs={'type': 'text'}))
+    price_final = forms.DecimalField(
+        decimal_places = 2,
+        widget = forms.NumberInput(attrs={'type': 'text'}))
+    username = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput(attrs={'type': 'Text'}))
+    photo = forms.ImageField(
+        required=False, 
+        widget = forms.FileInput(attrs={'type': 'file', 'class': 'cyan'}))
+    username = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput,
+        label = 'Usuario'
+        )
+    first_name = forms.CharField(
+        widget = forms.TextInput(attrs={'type': 'Text'}),
+        label = 'Nombre'
+        )
+    last_name = forms.CharField(
+        min_length = 35,
+        widget = forms.TextInput(attrs={'type': 'Text'}),
+        label = 'Apellido'
+        )
+    identification = forms.IntegerField(
+        widget = forms.NumberInput(attrs={'type': 'text', 'lenght': '13'})
+        )
+    birthday = forms.DateField(
+        widget =  SelectDateWidget(empty_label=("A&ntilde;io", "Mes", "D&iacute;a"))
+        )
+    phone_1 = forms.IntegerField(
+        widget = forms.NumberInput(attrs={'type': 'tel', 'class': 'validate'})
+        )
+    phone_2 = forms.NumberInput(attrs={'type': 'tel', 'class': 'validate'})
+    photo = forms.ImageField(
+        required = False)
+    
 class RegisterUserForm(forms.Form):
+    username = forms.CharField(
+        min_length = 5,
+        widget = forms.TextInput,
+        label = 'Usuario'
+        )
+    first_name = forms.CharField(
+        widget = forms.TextInput(attrs={'type': 'Text'}),
+        label = 'Nombre'
+        )
+    last_name = forms.CharField(
+        min_length = 35,
+        widget = forms.TextInput(attrs={'type': 'Text'}),
+        label = 'Apellido'
+        )
+    identification = forms.IntegerField(
+        widget = forms.NumberInput(attrs={'type': 'text', 'lenght': '13'})
+        )
+    birthday = forms.DateField(
+        widget =  SelectDateWidget(empty_label=("A&ntilde;io", "Mes", "D&iacute;a"))
+        )
+    phone_1 = forms.IntegerField(
+        widget = forms.NumberInput(attrs={'type': 'tel', 'class': 'validate'})
+        )
+    phone_2 = forms.NumberInput(attrs={'type': 'tel', 'class': 'validate'})
+    photo = forms.ImageField(
+        required = False)
+
+class RegisterProfileForm(forms.Form):
     username = forms.CharField(
         min_length = 5,
         widget = forms.TextInput(attrs={'type': 'Text'}))
@@ -13,9 +124,6 @@ class RegisterUserForm(forms.Form):
     password2 = forms.CharField(
         min_length = 5,
         widget = forms.PasswordInput(attrs={'type': 'password'}))
-    photo = forms.ImageField(
-        required=False, 
-        widget = forms.FileInput(attrs={'type': 'file'}))
 
     def clean_username(self):
         username = self.cleaned_data['username']
