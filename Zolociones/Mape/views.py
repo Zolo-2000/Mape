@@ -26,8 +26,8 @@ def mape_view(request):
     else:
         user_commertial = None
     commertial_list = Commertial.objects.all()
-    dataset_id = 'cit59saeo00412po306u3xfv6'
-    dataset = Datasets.read_dataset(cit59saeo00412po306u3xfv6).json()
+    #dataset_id = 'citbo4r7007bl2slqj6cha0mq'
+    #dataset = Datasets.read_dataset(dataset_id).json()
     context = ({"events": event_list, 
         "zero_time": zero_time,
         "base": 'base-mape.html',
@@ -37,6 +37,7 @@ def mape_view(request):
         "user_commertial": user_commertial,
         "MAPBOX_ACCESS_TOKEN": 'pk.eyJ1Ijoiem9sbyIsImEiOiJ0VlphRlZFIn0.gLAS81dTkxi1W5FqVMKwXg',
         })
+    
     return render_to_response("mape/mape.html", context)
 
 def search_view(request):
@@ -153,6 +154,10 @@ def commertial_register_view(request):
         username = cleaned_data.get('username')
 
 def location_register_view(request):
+    if request.GET:
+        latitude = request.GET.get('latitude')
+        longitude = request.GET.get('longitude')
+        print latitude
     if request.method == 'POST':
         form = LocationRegisterForm(request.POST, request.FILES)
     if form.is_valid():
@@ -171,7 +176,7 @@ def accounts_view(request):
     # Descrip: Vista para mostrar la configuracion de las cuentas del usuario
     user_profile = User_profile.objects.get(user=request.user)
     user_commertial = Commertial.objects.filter(user_profile=user_profile)
-    full_name = user_profile.user.get_full_name
+    full_name = request.user.get_full_name()
     context = ({
         "base": 'base.html',
         "user_commertial": user_commertial,

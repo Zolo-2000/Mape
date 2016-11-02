@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+import datetime
 from mapbox import Geocoder
 
-from .forms import RegisterUserForm
-from .forms import RegisterProfileForm
+from .forms import RegisterUserForm, ProfileRegisterForm
 from Mape.models import User_profile
 
 
@@ -27,6 +27,8 @@ def logout_view(request):
 def login_view(request):
     # Si el usuario esta ya logueado, lo redireccionamos a index_view
     mensaje = ''
+    context = None
+    messages.success(request,"Su perfil a sido modificado con exito...")
     if request.user.is_authenticated():
         return redirect(reverse('Mape:mapa'))
     if request.method == 'POST':
@@ -43,31 +45,82 @@ def login_view(request):
             context = {'mensaje': mensaje}
     return render(request, 'maccounts/login.html', context)
 
-
 def profile_register_view(request):
-	if request.method == 'POST':
-		""" request.FILES lo usamos para traer archivos como imagenes, video, sonido, etc"""
-		form = RegisterProfileForm(request.POST, request.FILES)
-		if form.is_valid():
-			cleaned_data = form.cleaned_data
-			username = cleaned_data.get('username')
-			password = cleaned_data.get('password')
-			email = cleaned_data.get('email')
-			image = cleaned_data.get('image')
-			user_model = User.objects.create_user(username=username, password=password)
-			user_model.email = email
-			user_model.save()
-			user_profile = User_profile()
-			user_profile.user = user_model
-			user_profile.user_name = username
-			user_profile.image = image
-			user_profile.save()
-			""" Aqui: Enviar correo con codigo de activacion """
-			return redirect(reverse('maccounts.confirmation', kwargs={'username': username}))
+    if request.user.is_authenticated():
+        return redirect(reverse('Mape:mapa'))
+    context = None
+    datas = {}
+    if request.POST:
+        form = ProfileRegisterForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            datas['username'] = form.cleaned_data['username']
+            datas['email'] = form.cleaned_data['email']
+            datas['password'] = form.cleaned_data['password']
+            salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+            usernamesalt = datas['username']
+            if isinstance(usernamesalt, unicode):
+                usernamesalt = usernamesalt.encode('utf8')
+            datas['activation_key']= hashlib.sha1(salt+usernamesalt).hexdigest()
+            datas['email_path']="/ActivationEmail.txt"
+            datas['email_subject']="Activaci&oacute;n de su cuenta"
+            
+            form.sendEmail(datas)
+            form.save(datas) #Save the user and his profile
+
+            request.session['registered']=True #For display purposes
+            return redirect(reverse('maccounts.login', kwargs={datas['username']}))
         else:
-        	form = RegisterProfileForm()
-	context = {'form': form}
-	return render(request, 'maccounts/profile_register.html', context)
+        	form = ProfileRegisterForm()
+                import pdb; pdb.set_trace()
+        context = {'datas': datas, 'form': form}
+
+    return render(request, 'maccounts/profile_register.html', context)
+
+#View called from activation email. Activate user if link didn't expire (48h default), or offer to
+#send a second link if the first expired.
+def activation(request, key):
+    activation_expired = False
+    already_active = False
+    profile = get_object_or_404(User_profile, activation_key=key)
+    if profile.user.is_active == False:
+        if timezone.now() > profile.key_expires:
+            activation_expired = True #Display: offer the user to send a new activation link
+            id_user = profile.user.id
+        else: #Activation successful
+            profile.user.is_active = True
+            profile.user.save()
+
+    #If user is already active, simply display error message
+    else:
+        already_active = True #Display : error message
+    return render(request, 'maccounts/activation.html', locals())
+
+def new_activation_link(request, user_id):
+    form = RegistrationForm()
+    datas={}
+    user = User.objects.get(id=user_id)
+    if user is not None and not user.is_active:
+        datas['username']=user.username
+        datas['email']=user.email
+        datas['email_path']="/ResendEmail.txt"
+        datas['email_subject']="Nueva clave de activaci&oacute;n de su cuenta"
+
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+        usernamesalt = datas['username']
+        if isinstance(usernamesalt, unicode):
+            usernamesalt = usernamesalt.encode('utf8')
+        datas['activation_key']= hashlib.sha1(salt+usernamesalt).hexdigest()
+
+        profile = Profile.objects.get(user=user)
+        profile.activation_key = datas['activation_key']
+        profile.key_expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(days=2), "%Y-%m-%d %H:%M:%S")
+        profile.save()
+
+        form.sendEmail(datas)
+        request.session['new_link']=True #Display: new link sent
+
+    return redirect(home)
 
 def user_register_view(request):
 	if request.method == 'POST':
@@ -100,5 +153,6 @@ def user_register_view(request):
         	form = RegisterUserForm()
 	context = {'form': form}
 	return render(request, 'maccounts/user_register.html', context)
+
 def confirmation_view(request, username):
 	return HttpResponseRedirect('<h2>{{ username }} gracias por registrarte! /n Revisa tu correo electronico para confirmar </h2>')

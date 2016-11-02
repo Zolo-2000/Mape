@@ -11,7 +11,7 @@
     <div class="row " >
         <!-- SI EXISTE FOTO DE PERFIL EN PERFIL DE USUARIO -->
         {% if user_profile.image %}
-            <img class="col l2 s4 responsive-img circle materialboxed" width="120" src="{{ MEDIA_URL }}{{ user_profile.image }}" alt="Foto de perfil: {{ user_profile.user_name }}">
+            <img class="col l2 s4 responsive-img circle materialboxed" width="120" src="{{ MEDIA_URL }}{{ user_profile.image.url }}" alt="Foto de perfil: {{ user_profile.user_name }}">
         {% else %}
             <a class="col l2 s3 button waves-effect">
                 <i class="material-icons large prefix cyan-text" alt="Imagen de {{ user_profile.user_name }}">account_circle</i>

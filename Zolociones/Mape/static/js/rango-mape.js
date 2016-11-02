@@ -21,7 +21,7 @@ $(document).ready(function() {
   $('.tooltipped').tooltip({delay: 50});
   $('.materialboxed').materialbox();
   $('.slider').slider({full_width: true});
-  $("#CurrentLocation").click(addCurrentLocationToMap);//Mapbox: hubicacion actual (D)
+  
   var options = [{selector: '.class', offset: 200, callback: 'globalFunction()' },
   {selector: '.other-class', offset: 200, callback: 'globalFunction()' }];
   WebFontConfig = {

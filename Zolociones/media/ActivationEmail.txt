@@ -1,0 +1,1 @@
+Hola este es tu codigo de verificacion: {{ activation_key }}

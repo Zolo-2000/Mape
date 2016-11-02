@@ -10,6 +10,8 @@ class User_profile(models.Model):
     phone_1 = models.BigIntegerField(blank=True, null=True)
     phone_2 = models.BigIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to="accounts", null=True, blank=True)
+    activation_key = models.CharField(max_length=40, null=True)
+    key_expires = models.DateTimeField(null=True)
     def __unicode__(self):
     	return unicode(self.user_name)
 

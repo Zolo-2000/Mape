@@ -2,6 +2,8 @@ from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.models import User
 from .models import User_profile
+from django.core.mail import EmailMessage
+from django.conf import settings 
 
 class EventRegisterForm(forms.Form):
     event_name = forms.CharField(
@@ -112,7 +114,7 @@ class RegisterUserForm(forms.Form):
     photo = forms.ImageField(
         required = False)
 
-class RegisterProfileForm(forms.Form):
+class ProfileRegisterForm(forms.Form):
     username = forms.CharField(
         min_length = 5,
         widget = forms.TextInput(attrs={'type': 'Text'}))
@@ -124,6 +126,34 @@ class RegisterProfileForm(forms.Form):
     password2 = forms.CharField(
         min_length = 5,
         widget = forms.PasswordInput(attrs={'type': 'password'}))
+
+    def save(self, datas):
+        user_model = User.objects.create_user(datas['username'], datas['email'], datas['password'])
+        user_model.is_active = False
+        user_model.save()
+        user_profile = User_profile()
+        user_profile.user = user_model
+        user_profile.user_name = datas['username']
+        user_profile.activation_key=datas['activation_key']
+        user_profile.key_expires=datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(days=2), "%Y-%m-%d %H:%M:%S")
+        user_profile.save()
+        return user_model
+
+#Sending activation email ------>>>!! Warning : Domain name is hardcoded below !!<<<------
+    #The email is written in a text file (it contains templatetags which are populated by the method below)
+    def sendEmail(self, datas):
+        link="127.0.0.1:8000/login/activate/"+datas['activation_key']
+        c = Context({'activation_link':link,'username':datas['username']})
+        f = open(MEDIA_ROOT+datas['email_path'], 'r')
+        t = Template(f.read())
+        f.close()
+        message=t.render(c)
+        try:
+            email = EmailMessage('objects', 'asdasdasdf aasd', to=['solovino.16.2012@gmail.com'], fail_silently=False)
+            email.send()
+            import pdb; pdb.set_trace()
+        except BadHeaderError:
+            return HttpResponse('Error al enviar email.')
 
     def clean_username(self):
         username = self.cleaned_data['username']

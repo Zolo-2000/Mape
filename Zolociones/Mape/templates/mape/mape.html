@@ -28,8 +28,10 @@
                             <i class="material-icons medium">add</i>
                         </a>
                         <ul>
+                            <!-- Link para localidad --> 
                             <li><a class="btn-floating cyan darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="sitio"><i class="material-icons">room</i></a></li>
-                            <li><a class="btn-floating red darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="evento"><i class="material-icons">room</i></a></li>
+                            <!-- Link para evento -->
+                            <li><a href="{% url 'Mape:event_register' %}" class="btn-floating red darken-1 tooltipped" data-position="left" data-delay="2" data-tooltip="evento"><i class="material-icons">room</i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -37,6 +39,19 @@
             </div>
         </div>
     </div>
-</div>
+     <!-- Modal Structure -->
+    <div id="modal-event-register" class="modal">
+        <div class="modal-content center">
+            <h4> Opciones de mapa </h4>
+            <p> Aseg&uacute;rese de que ha seleccionado la ubicaci&oacute;n ex&aacute;cta si desea registrar: </p>
+            <a href="#!" id="register-location" class="btn cyan"> <i class="material-icons left  ">store</i> Una localidad </a>
+            <br/>
+            <a href="#!" id="register-event" class="btn cyan"> <i class="material-icons left  ">room</i> Un Evento </a>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            </div>
+        </div>
+        
+    </div>
 
 {% endblock content %}

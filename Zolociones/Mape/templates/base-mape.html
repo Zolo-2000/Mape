@@ -58,6 +58,101 @@
     </div>
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript">
+            (function($){
+            // Provide your access token
+            L.mapbox.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}';
+            // Create a map in the div #map. coordenates by default: Macas-Ecuador
+            var map = L.mapbox.map('map', 'mapbox.light', {
+            }).setView([-78.12, 2.30], 9);
+
+            // Set the coordenates if the navigator have geolocation
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                  latitude= position.coords.latitude,
+                  longitude = position.coords.longitude;
+                  map.setView([latitude, longitude], 16)
+                  });
+                  }else{
+                    console.log("No dispones de geolocalizacion en tu navegador");
+                    alert("No dispones de geolocalizacion en tu navegador");
+                  };
+            var latitude,
+              longitude;
+            // Function at right click
+            map.on('contextmenu', function(e) {
+              latitude = e.latlng.lat;
+              longitude = e.latlng.lng;
+              console.log('latitude: ', + latitude + " longitude: " + longitude);
+              $('#modal-event-register').openModal();
+            });
+
+            $("#register-location").click(function(){
+                $(location).attr('href', '//127.0.0.1:8000/mape/location_register?latitude='+latitude+'&longitude='+longitude);
+              });
+
+            var tile = map.getTileJSON();
+
+            L.mapbox.featureLayer({
+                // this feature is in the GeoJSON format: see geojson.org
+                // for the full specification
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    // coordinates here are in longitude, latitude order because
+                    // x, y is the standard for GeoJSON and many formats
+                    coordinates: [
+                      -1.67, -78.66
+                    ]
+                },
+                properties: {
+                    title: 'Peregrine Espresso',
+                    description: '1718 14th St NW, Washington, DC',
+                    // one can customize markers by adding simplestyle properties
+                    // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+                    'marker-size': 'large',
+                    'marker-color': '#BE9A6B',
+                    'marker-symbol': 'cafe'
+                }
+            }).addTo(map);
+
+            addCurrentLocationToMap = function() {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                  var lat= position.coords.latitude,
+                  longit = position.coords.longitude;
+                  console.log('--- Tu posision actual es: --- ');
+                  console.log('Lat: ', + lat);
+                  console.log('Long: ', + longit);
+                  console.log('---------------------------');
+                  var marker = L.marker([lat, longit], {
+                    icon: L.mapbox.marker.icon({
+                  'marker-size': 'large',
+                  'marker-symbol': 'bus',
+                  'marker-color': '#fa0'})
+                  });
+                  marker.addTo(map);
+                  marker.bindPopup('Estas en: <br>' + lat + ', ' + longit).openPopup();
+                });
+              }else{
+                console.log("No dispones de geolocalizacion en tu navegador")
+              }
+            };
+
+            // 
+            (function() {
+              var wf = document.createElement('script');
+              wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+              wf.type = 'text/javascript';
+              wf.async = 'true';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(wf, s);
+            })// end of document ready
+            })(jQuery); 
+            //// end of jQuery name space
+            $("#CurrentLocation").click(addCurrentLocationToMap);//Mapbox: hubicacion actual (D)
+        </script>
     <script src="{% static 'js/mapbox-jquery.js' %}"></script>
     <script src="{% static 'js/rango-mape.js' %}"></script>
     </body>
