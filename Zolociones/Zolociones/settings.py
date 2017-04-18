@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'Mape',
     'maccounts',
+    'mapbox',
+    'django_pdb',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,7 +95,7 @@ WSGI_APPLICATION = 'Zolociones.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test_dbmape',
+        'NAME': 'dbmape',
         'USER': 'admin',
         'PASSWORD': 'mape_admin',
         'HOST': '127.0.0.1',
